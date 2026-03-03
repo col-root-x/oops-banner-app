@@ -1,29 +1,54 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class OOPSBannerApp {
 
-    public static void main(String[] args) {
+    // Static Inner Class
+    static class CharacterPattern {
+        private char letter;
+        private String[] pattern;
 
-        String[] banner = buildBanner();
+        public CharacterPattern(char letter, String[] pattern) {
+            this.letter = letter;
+            this.pattern = pattern;
+        }
 
-        for (String line : banner) {
-            System.out.println(line);
+        public char getLetter() {
+            return letter;
+        }
+
+        public String[] getPattern() {
+            return pattern;
         }
     }
 
-    public static String[] buildBanner() {
+    public static void main(String[] args) {
 
-        String[] o = getO();
-        String[] p = getP();
-        String[] s = getS();
+        List<CharacterPattern> patternList = new ArrayList<>();
 
-        return new String[]{
-            String.join("   ", o[0], o[0], p[0], s[0]),
-            String.join("   ", o[1], o[1], p[1], s[1]),
-            String.join("   ", o[2], o[2], p[2], s[2]),
-            String.join("   ", o[3], o[3], p[3], s[3]),
-            String.join("   ", o[4], o[4], p[4], s[4]),
-            String.join("   ", o[5], o[5], p[5], s[5]),
-            String.join("   ", o[6], o[6], p[6], s[6])
-        };
+        patternList.add(new CharacterPattern('O', getO()));
+        patternList.add(new CharacterPattern('P', getP()));
+        patternList.add(new CharacterPattern('S', getS()));
+
+        printWord("OOPS", patternList);
+    }
+
+    public static void printWord(String word, List<CharacterPattern> list) 
+{
+
+        for (int i = 0; i < 7; i++) {
+
+            for (char c : word.toCharArray()) {
+
+                for (CharacterPattern cp : list) {
+
+                    if (cp.getLetter() == c) {
+                        System.out.print(cp.getPattern()[i] + "   ");
+                    }
+                }
+            }
+            System.out.println();
+        }
     }
 
     public static String[] getO() {
